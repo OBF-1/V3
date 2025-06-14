@@ -20,3 +20,4 @@ This project is the mobile-first, GitHub-backed continuation of the AI media eng
 2. Use `/generate-image`, `/generate-voice`, or `/generate-video` via FastAPI endpoints
 3. Export content via `/export-content`
 test1
+test2

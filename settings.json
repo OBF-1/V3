@@ -1,0 +1,5 @@
+{
+  "mode": "local",
+  "media_dir": "./MEDIA",
+  "log_level": "info"
+}

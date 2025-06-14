@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+
+# FastAPI
+*.log
+
+# Media
+/media/images/*
+/media/audio/*
+/media/video/*
+!/media/.keep
+
+# Exports
+/exports/*.json
+
+# VS Code
+.vscode/
+
+# Mac system files
+.DS_Store

@@ -46,7 +46,7 @@ with open(summary_file, "w") as f:
 # Git commit & push
 print("⬆️ Committing test logs...")
 subprocess.run(["git", "add", session_path])
-subprocess.run(["git", "commit", "-m", f"Test log {session_time}"])
+subprocess.run(["git", "commit", "-m", f"Test log {session_time}""])
 subprocess.run(["git", "push"])
 
 print(f"✅ Done. Log saved to: {summary_file}")

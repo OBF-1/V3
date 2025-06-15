@@ -12,10 +12,12 @@ session_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 session_path = os.path.join(logs_root, "sessions", session_time)
 os.makedirs(session_path, exist_ok=True)
 
-# Clean previous logs
-if os.path.exists(previous_path):
-    shutil.rmtree(previous_path)
-os.makedirs(previous_path, exist_ok=True)
+from pathlib import Path
+logs_root = Path("logs")
+previous_path = logs_root / "previous"
+if previous_path.exists():
+     shutil.rmtree(previous_path, ignore_errors=True)
+
 
 # Move old sessions to /previous/
 for item in os.listdir(os.path.join(logs_root, "sessions")):
@@ -50,3 +52,12 @@ subprocess.run(["git", "commit", "-m", f"Test log {session_time}"])
 subprocess.run(["git", "push"])
 
 print(f"✅ Done. Log saved to: {summary_file}")
+
+import stat
+
+def handle_remove_readonly(func, path, _):
+    os.chmod(path, stat.S_IWRITE)
+    func(path)
+
+if Path(previous_path).exists():
+    shutil.rmtree(previous_path, onerror=handle_remove_readonly)

@@ -27,7 +27,6 @@ async def analyze_image(file: UploadFile = File(...)):
         "width": image.width,
         "height": image.height,
         "file_size_bytes": file_size
-        # 🚫 "info": image.info  <-- Removed to prevent JSON error
     }
 
     try:
@@ -43,4 +42,3 @@ async def analyze_image(file: UploadFile = File(...)):
         metadata["exif"] = "No EXIF metadata found."
 
     return metadata
-

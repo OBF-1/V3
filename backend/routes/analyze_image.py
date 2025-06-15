@@ -10,7 +10,6 @@ async def analyze_image(file: UploadFile = File(...)):
     if not file.content_type.startswith("image/"):
         raise HTTPException(status_code=400, detail="Only image files are supported.")
 
-    # Read image content
     content = await file.read()
     file_size = len(content)
 
@@ -19,7 +18,6 @@ async def analyze_image(file: UploadFile = File(...)):
     except Exception:
         raise HTTPException(status_code=400, detail="Invalid image file.")
 
-    # Extract basic metadata
     metadata = {
         "filename": file.filename,
         "content_type": file.content_type,
@@ -28,11 +26,10 @@ async def analyze_image(file: UploadFile = File(...)):
         "size": image.size,
         "width": image.width,
         "height": image.height,
-        "file_size_bytes": file_size,
-        "info": image.info
+        "file_size_bytes": file_size
+        # 🚫 "info": image.info  <-- Removed to prevent JSON error
     }
 
-    # Extract EXIF metadata if available
     try:
         exif_data = piexif.load(image.info.get("exif", b""))
         readable_exif = {}
@@ -46,3 +43,4 @@ async def analyze_image(file: UploadFile = File(...)):
         metadata["exif"] = "No EXIF metadata found."
 
     return metadata
+
